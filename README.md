@@ -27,7 +27,7 @@ import { useState } from 'react';
 import DateRangePicker from 'mui-popover-date-range-picker';
 
 const MyComponent = () => {
-    const [value, setValue] = useState([new Date(), new Date()]);
+    const [value, setValue] = useState({ rangeStart: new Date(), rangeEnd: new Date() });
 
     return <DateRangePicker value={value} onChange={setValue} />;
 };
