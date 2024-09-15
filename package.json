@@ -50,6 +50,7 @@
         "@emotion/styled": "^11.13.0",
         "@mui/icons-material": "^6.0.1",
         "@mui/material": "^6.0.1",
+        "@mui/system": "^6.1.0",
         "@mui/x-date-pickers": "^7.15.0",
         "@rollup/plugin-babel": "6.0.4",
         "@rollup/plugin-commonjs": "26.0.1",
