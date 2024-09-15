@@ -41,7 +41,26 @@ Checkout live examples on [mui-popover-date-range-picker-demo](https://ahmetemre
 
 ## API
 
-| **Prop**     | **Type** | **Required** | **Description**                     |
-| ------------ | -------- | ------------ | ----------------------------------- |
-| **value**    | array    | yes          | value of date range picker          |
-| **onChange** | func     | yes          | onChange event of date range picker |
+| **Prop**                   | **Type** | **Required** | **Description**                                                                |
+| -------------------------- | -------- | ------------ | ------------------------------------------------------------------------------ |
+| **value**                  | array    | yes          | value of date range picker                                                     |
+| **onChange**               | func     | yes          | onChange event of date range picker                                            |
+| **disabled**               | bool     | no           | disabled state of date range picker                                            |
+| **format**                 | string   | no           | date format of date range picker                                               |
+| **placeholderString**      | string   | no           | placeholder string of date range picker                                        |
+| **dateFormatter**          | func     | no           | date formatted function of date range picker                                   |
+| **clearIcon**              | node     | no           | clear icon of date range picker                                                |
+| **calendarIcon**           | node     | no           | calendar icon of date range picker                                             |
+| **texts**                  | object   | no           | CLEAR_TITLE, CLEAR_START_VALUE_TEXT, CLEAR_END_VALUE_TEXT, OPEN_CALENDAR_TITLE |
+| **popoverProps**           | object   | no           | Props of Popover component                                                     |
+| **stackProps**             | object   | no           | Props of Stack component                                                       |
+| **verticalDividerProps**   | object   | no           | Props of vertical Divider component                                            |
+| **horizontalDividerProps** | object   | no           | Props of horizontal Divider component                                          |
+| **startDateCalendarProps** | object   | no           | Props of DateCalendar component of range start                                 |
+| **endDateCalendarProps**   | object   | no           | Props of DateCalendar component of range end                                   |
+| **startClearButtonProps**  | object   | no           | Props of clear button of range start                                           |
+| **endClearButtonProps**    | object   | no           | Props of clear button of range end                                             |
+| **enableTime**             | bool     | no           | Enable time selection                                                          |
+| **startClockProps**        | object   | no           | Props of clock component of range start                                        |
+| **endClockProps**          | object   | no           | Props of clock component of range end                                          |
+| **innerRef**               | object   | no           | Ref for TextField                                                              |
