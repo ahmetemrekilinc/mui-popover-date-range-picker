@@ -4,10 +4,8 @@ import React, { useCallback, useMemo, useState } from 'react';
 import { format as dateFnsFormat, parseISO } from 'date-fns';
 
 import { TextField, Popover, Stack, Box, Divider, Button, IconButton, InputAdornment, Tooltip } from '@mui/material';
-import { DateCalendar, PickersDay } from '@mui/x-date-pickers';
-import { MultiSectionDigitalClock } from '@mui/x-date-pickers/MultiSectionDigitalClock';
-import DateRangeIcon from '@mui/icons-material/DateRange';
-import ClearIcon from '@mui/icons-material/Clear';
+import { DateCalendar, MultiSectionDigitalClock, PickersDay } from '@mui/x-date-pickers';
+import { DateRange as DateRangeIcon, Clear as ClearIcon } from '@mui/icons-material';
 
 import { isEmpty } from './ControlUtils';
 
