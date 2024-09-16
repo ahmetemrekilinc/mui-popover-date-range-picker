@@ -13,6 +13,7 @@ function App() {
     const [format, setFormat] = useState();
     const [placeholderString, setPlaceholderString] = useState();
     const [enableTime, setEnableTime] = useState();
+    const [hideCloseButton, setHideCloseButton] = useState();
 
     const currentJsx = (
         <DateRangePicker
@@ -23,6 +24,7 @@ function App() {
             format={format}
             placeholderString={placeholderString}
             enableTime={enableTime}
+            hideCloseButton={hideCloseButton}
         />
     );
 
@@ -38,6 +40,9 @@ function App() {
     }
     if (enableTime === undefined) {
         ignoreProps.push('enableTime');
+    }
+    if (hideCloseButton === undefined) {
+        ignoreProps.push('hideCloseButton');
     }
 
     let currentJsxString = jsxToString(currentJsx, {
@@ -113,6 +118,15 @@ function App() {
                                 id="enableTime"
                                 checked={enableTime || false}
                                 onChange={(e) => setEnableTime(e.target.checked)}
+                            />
+                        </div>
+                        <div className="settingsItem">
+                            <label htmlFor="hideCloseButton">hideCloseButton:</label>
+                            <input
+                                type="checkbox"
+                                id="hideCloseButton"
+                                checked={hideCloseButton || false}
+                                onChange={(e) => setHideCloseButton(e.target.checked)}
                             />
                         </div>
                     </div>
@@ -199,7 +213,8 @@ function App() {
                                     <td>object</td>
                                     <td>no</td>
                                     <td>
-                                        CLEAR_TITLE, CLEAR_START_VALUE_TEXT, CLEAR_END_VALUE_TEXT, OPEN_CALENDAR_TITLE
+                                        CLEAR_TITLE, CLEAR_START_VALUE_TEXT, CLEAR_END_VALUE_TEXT, OPEN_CALENDAR_TITLE,
+                                        CLOSE_BUTTON_TITLE
                                     </td>
                                 </tr>
                                 <tr>
@@ -267,6 +282,18 @@ function App() {
                                     <td>object</td>
                                     <td>no</td>
                                     <td>Props of clock component of range end</td>
+                                </tr>
+                                <tr>
+                                    <td>hideCloseButton</td>
+                                    <td>bool</td>
+                                    <td>no</td>
+                                    <td>Hide close button</td>
+                                </tr>
+                                <tr>
+                                    <td>closeButtonProps</td>
+                                    <td>object</td>
+                                    <td>no</td>
+                                    <td>Props of close button component</td>
                                 </tr>
                                 <tr>
                                     <td>innerRef</td>

@@ -16,6 +16,7 @@ const DEFAULT_TEXTS = {
     CLEAR_START_VALUE_TEXT: 'Clear',
     CLEAR_END_VALUE_TEXT: 'Clear',
     OPEN_CALENDAR_TITLE: 'Open Calendar',
+    CLOSE_BUTTON_TITLE: 'Close',
 };
 
 const getText = (texts, key) => {
@@ -121,6 +122,8 @@ const DateRangePicker = (props) => {
         enableTime,
         startClockProps,
         endClockProps,
+        hideCloseButton,
+        closeButtonProps,
         ...other
     } = props;
 
@@ -155,13 +158,7 @@ const DateRangePicker = (props) => {
             if (dateFormatter) {
                 return dateFormatter(dateValue);
             }
-            try {
-                const formattedValue = dateFnsFormat(dateValue, finalFormat);
-                return formattedValue;
-            } catch (e) {
-                console.error(e);
-                return finalFormat;
-            }
+            return dateFnsFormat(dateValue, finalFormat);
         },
         [finalFormat, dateFormatter]
     );
@@ -336,6 +333,42 @@ const DateRangePicker = (props) => {
           }
         : {};
 
+    const clearStartButton = (
+        <Button
+            onClick={handleClearStartValue}
+            sx={{
+                textTransform: 'none',
+                position: 'absolute',
+                bottom: 10,
+                right: 20,
+                display: rangeStartValue ? 'inline-flex' : 'none',
+            }}
+            className="MuiDateRangePickerCalendarClearButton"
+            variant="outlined"
+            {...startClearButtonProps}
+        >
+            {getText(texts, 'CLEAR_START_VALUE_TEXT')}
+        </Button>
+    );
+
+    const clearEndButton = (
+        <Button
+            onClick={handleClearEndValue}
+            sx={{
+                textTransform: 'none',
+                position: 'absolute',
+                bottom: 10,
+                right: 20,
+                display: rangeEndValue ? 'inline-flex' : 'none',
+            }}
+            className="MuiDateRangePickerCalendarClearButton"
+            variant="outlined"
+            {...endClearButtonProps}
+        >
+            {getText(texts, 'CLEAR_END_VALUE_TEXT')}
+        </Button>
+    );
+
     return (
         <>
             <TextField
@@ -381,122 +414,132 @@ const DateRangePicker = (props) => {
                 {...popoverProps}
             >
                 <Stack
-                    direction={{ xs: 'column', sm: 'row' }}
-                    flexWrap="wrap"
+                    alignItems="flex-end"
                     divider={
-                        <>
-                            {horizontalDivider}
-                            {verticalDivider}
-                        </>
+                        <Divider
+                            orientation="horizontal"
+                            flexItem
+                            sx={{ borderStyle: 'dashed', marginBottom: '8px' }}
+                        />
                     }
-                    {...stackProps}
                 >
-                    <Stack direction={{ xs: 'column', sm: 'row' }} alignItems="center">
-                        <Box
-                            sx={{
-                                position: 'relative',
-                                '&:has(.MuiYearCalendar-root) .MuiDateRangePickerCalendarClearButton': {
-                                    display: 'none',
-                                },
-                            }}
-                        >
-                            <DateCalendar
-                                value={rangeStartValue}
-                                onChange={onRangeStartValueChange}
-                                maxDate={maxOfStartValue}
-                                slots={{
-                                    day: RangeStartDay,
-                                }}
-                                slotProps={{
-                                    day: {
-                                        minDate: rangeStartValue,
-                                        maxDate: maxOfStartValue,
-                                        hoveredStartDay: hoveredStartDay,
-                                        hoveredEndDay: hoveredEndDay,
-                                        onMouseEnter: onMouseEnterRangeStartDay,
-                                        onMouseLeave: onMouseLeaveRangeStartDay,
+                    <Stack
+                        direction={{ xs: 'column', sm: 'row' }}
+                        flexWrap="wrap"
+                        divider={
+                            <>
+                                {horizontalDivider}
+                                {verticalDivider}
+                            </>
+                        }
+                        {...stackProps}
+                    >
+                        <Stack direction={{ xs: 'column', sm: 'row' }} alignItems="center">
+                            <Box
+                                sx={{
+                                    position: 'relative',
+                                    '&:has(.MuiYearCalendar-root) .MuiDateRangePickerCalendarClearButton': {
+                                        display: 'none',
                                     },
                                 }}
-                                {...startDateCalendarProps}
-                            />
-                            <Button
-                                onClick={handleClearStartValue}
-                                sx={{
-                                    textTransform: 'none',
-                                    position: 'absolute',
-                                    bottom: 10,
-                                    right: 20,
-                                    display: rangeStartValue ? 'inline-flex' : 'none',
-                                }}
-                                className="MuiDateRangePickerCalendarClearButton"
-                                variant="outlined"
-                                {...startClearButtonProps}
                             >
-                                {getText(texts, 'CLEAR_START_VALUE_TEXT')}
-                            </Button>
-                        </Box>
-                        {enableTime && (
-                            <MultiSectionDigitalClock
-                                ampm={false}
-                                value={rangeStartValue}
-                                onChange={onRangeStartValueChange}
-                                {...startClockProps}
-                            />
-                        )}
-                    </Stack>
-                    <Stack direction={{ xs: 'column', sm: 'row' }} alignItems="center">
-                        <Box
-                            sx={{
-                                position: 'relative',
-                                '&:has(.MuiYearCalendar-root) .MuiDateRangePickerCalendarClearButton': {
-                                    display: 'none',
-                                },
-                            }}
-                        >
-                            <DateCalendar
-                                value={rangeEndValue}
-                                onChange={onRangeEndValueChange}
-                                minDate={minOfEndValue}
-                                slots={{
-                                    day: RangeEndDay,
-                                }}
-                                slotProps={{
-                                    day: {
-                                        minDate: minOfEndValue,
-                                        maxDate: rangeEndValue,
-                                        hoveredStartDay: hoveredStartDay,
-                                        hoveredEndDay: hoveredEndDay,
-                                        onMouseEnter: onMouseEnterRangeEndDay,
-                                        onMouseLeave: onMouseLeaveRangeEndDay,
+                                <DateCalendar
+                                    value={rangeStartValue}
+                                    onChange={onRangeStartValueChange}
+                                    maxDate={maxOfStartValue}
+                                    slots={{
+                                        day: RangeStartDay,
+                                    }}
+                                    slotProps={{
+                                        day: {
+                                            minDate: rangeStartValue,
+                                            maxDate: maxOfStartValue,
+                                            hoveredStartDay: hoveredStartDay,
+                                            hoveredEndDay: hoveredEndDay,
+                                            onMouseEnter: onMouseEnterRangeStartDay,
+                                            onMouseLeave: onMouseLeaveRangeStartDay,
+                                        },
+                                    }}
+                                    {...startDateCalendarProps}
+                                />
+                                {!enableTime && clearStartButton}
+                            </Box>
+                            {enableTime && (
+                                <Stack
+                                    sx={{ position: 'relative', height: '100%', width: '100%' }}
+                                    justifyContent="center"
+                                >
+                                    <MultiSectionDigitalClock
+                                        ampm={false}
+                                        value={rangeStartValue}
+                                        onChange={onRangeStartValueChange}
+                                        {...startClockProps}
+                                    />
+                                    {clearStartButton}
+                                </Stack>
+                            )}
+                        </Stack>
+                        <Stack direction={{ xs: 'column', sm: 'row' }} alignItems="center">
+                            <Box
+                                sx={{
+                                    position: 'relative',
+                                    '&:has(.MuiYearCalendar-root) .MuiDateRangePickerCalendarClearButton': {
+                                        display: 'none',
                                     },
                                 }}
-                                {...endDateCalendarProps}
-                            />
-                            <Button
-                                onClick={handleClearEndValue}
-                                sx={{
-                                    textTransform: 'none',
-                                    position: 'absolute',
-                                    bottom: 10,
-                                    right: 20,
-                                    display: rangeEndValue ? 'inline-flex' : 'none',
-                                }}
-                                className="MuiDateRangePickerCalendarClearButton"
-                                variant="outlined"
-                                {...endClearButtonProps}
                             >
-                                {getText(texts, 'CLEAR_END_VALUE_TEXT')}
-                            </Button>
-                        </Box>
-                        {enableTime && (
-                            <MultiSectionDigitalClock
-                                ampm={false}
-                                value={rangeEndValue}
-                                onChange={onRangeEndValueChange}
-                                {...endClockProps}
-                            />
-                        )}
+                                <DateCalendar
+                                    value={rangeEndValue}
+                                    onChange={onRangeEndValueChange}
+                                    minDate={minOfEndValue}
+                                    slots={{
+                                        day: RangeEndDay,
+                                    }}
+                                    slotProps={{
+                                        day: {
+                                            minDate: minOfEndValue,
+                                            maxDate: rangeEndValue,
+                                            hoveredStartDay: hoveredStartDay,
+                                            hoveredEndDay: hoveredEndDay,
+                                            onMouseEnter: onMouseEnterRangeEndDay,
+                                            onMouseLeave: onMouseLeaveRangeEndDay,
+                                        },
+                                    }}
+                                    {...endDateCalendarProps}
+                                />
+                                {!enableTime && clearEndButton}
+                            </Box>
+                            {enableTime && (
+                                <Stack
+                                    sx={{ position: 'relative', height: '100%', width: '100%' }}
+                                    justifyContent="center"
+                                >
+                                    <MultiSectionDigitalClock
+                                        ampm={false}
+                                        value={rangeEndValue}
+                                        onChange={onRangeEndValueChange}
+                                        {...endClockProps}
+                                    />
+                                    {clearEndButton}
+                                </Stack>
+                            )}
+                        </Stack>
                     </Stack>
+                    {!hideCloseButton && (
+                        <Button
+                            onClick={handleClosePopover}
+                            sx={{
+                                textTransform: 'none',
+                                marginRight: '20px',
+                                marginBottom: '8px',
+                            }}
+                            className="MuiDateRangePickerCalendarCloseButton"
+                            variant="outlined"
+                            {...closeButtonProps}
+                        >
+                            {getText(texts, 'CLOSE_BUTTON_TITLE')}
+                        </Button>
+                    )}
                 </Stack>
             </Popover>
         </>
@@ -524,7 +567,9 @@ DateRangePicker.propTypes = {
     enableTime: PropTypes.bool,
     startClockProps: PropTypes.object,
     endClockProps: PropTypes.object,
-    innerRef: PropTypes.object,
+    hideCloseButton: PropTypes.bool,
+    closeButtonProps: PropTypes.object,
+    innerRef: PropTypes.func,
 };
 
 export default DateRangePicker;
