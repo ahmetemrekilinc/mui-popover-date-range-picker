@@ -297,7 +297,7 @@ function App() {
                                 </tr>
                                 <tr>
                                     <td>innerRef</td>
-                                    <td>object</td>
+                                    <td>func</td>
                                     <td>no</td>
                                     <td>Ref for TextField</td>
                                 </tr>

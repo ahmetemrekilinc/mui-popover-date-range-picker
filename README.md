@@ -65,4 +65,4 @@ Checkout live examples on [mui-popover-date-range-picker-demo](https://ahmetemre
 | **endClockProps**          | object   | no           | Props of clock component of range end                                                              |
 | **hideCloseButton**        | bool     | no           | Hide close button                                                                                  |
 | **closeButtonProps**       | object   | no           | Props of close button component                                                                    |
-| **innerRef**               | object   | no           | Ref for TextField                                                                                  |
+| **innerRef**               | func     | no           | Ref for TextField                                                                                  |
